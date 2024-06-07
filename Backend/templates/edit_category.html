@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <form class="forms-sample" method="post" action="{% url 'update_category' cat_id=data.id %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleInputName1">Category Name</label>
+                      <input type="text" class="form-control" value="{{data.Category_Name}}" name="c_name" id="exampleInputName1" placeholder="Category Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">Description</label>
+                      <textarea class="form-control"  name="description" id="exampleTextarea1" rows="4">{{data.Description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputName1">Upload Category Image</label>
+                      <input type="file" class="form-control" name="image" id="exampleInputName1" placeholder="Category Name">
+                        <img src="{{data.Category_Image.url}}" height="250px" width="400pxpx">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+
+</body>
+</html>
+{% endblock %}
