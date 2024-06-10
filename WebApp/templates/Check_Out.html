@@ -44,7 +44,7 @@
     <!--PreLoader Ends-->
 
 	<!-- header -->
-<div class="top-header-area" id="sticker">
+	<div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 text-center">
@@ -60,7 +60,7 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li><a href="{% url 'Home' %}">Home</a>
+								<li class="current-list-item"><a href="{% url 'Home' %}">Home</a>
 <!--									<ul class="sub-menu">-->
 <!--										<li><a href="index.html">Static Home</a></li>-->
 <!--										<li><a href="index_2.html">Slider Home</a></li>-->
@@ -138,8 +138,8 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>See more Details</p>
-						<h1>{{data.Product_Name}}</h1>
+						<p>Fresh and Organic</p>
+						<h1>Check Out Product</h1>
 					</div>
 				</div>
 			</div>
@@ -147,93 +147,119 @@
 	</div>
 	<!-- end breadcrumb section -->
 
-	<!-- single product -->
-	<div class="single-product mt-150 mb-150">
+	<!-- check out section -->
+	<div class="checkout-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-5">
-					<div class="single-product-img">
-						<img src="{{data.Product_Image.url}}" alt="" width="350px" height="300px">
-					</div>
-				</div>
-				<div class="col-md-7">
-					<div class="single-product-content">
-						<h3>{{data.Product_Name}}</h3>
-						<p class="single-product-pricing"><span>Per Kg</span> Rs.{{data.Price}}</p>
-						<p>{{data.Description}}</p>
-						<div class="single-product-form">
-							<form method="post" action="{% url 'save_cart' %}">
-								{% csrf_token %}
-								<input type="number" placeholder="0" min="1" id="qty" name="quantity">
-								<input type="hidden" placeholder="price" id="price" value="{{data.Price}}" >
-								<input type="text" placeholder="Total Price" id="total" name="tprice">
-								<input type="hidden" value="{{request.session.Username}}"  name="userna" readonly>
-								<input type="hidden" value="{{data.Product_Name}}" name="productna"><br><br>
-								<p><input type="submit" value="Add to cart"></p>
-							</form>
-<!--							<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
-							<p><strong>Categories: </strong>{{data.Category}}, Organic</p>
-						</div>
-						<h4>Share:</h4>
-						<ul class="product-share">
-							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href=""><i class="fab fa-twitter"></i></a></li>
-							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end single product -->
+				<div class="col-lg-8">
+					<div class="checkout-accordion-wrap">
+						<div class="accordion" id="accordionExample">
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingOne">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						          Billing Address
+						        </button>
+						      </h5>
+						    </div>
 
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">
-						<h3><span class="orange-text">Related</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="billing-address-form">
+						        	<form action="{% url 'save_payment_details' %}" method="post">
+										{% csrf_token %}
+						        		<p><input type="text" placeholder="Name" value="{{request.session.Username}}" name="user_name" readonly></p>
+						        		<p><input type="email" placeholder="Email" name="user_email" required ></p>
+						        		<p><input type="text" placeholder="Address" name="user_address" required></p>
+						        		<p><input type="tel" placeholder="Phone" name="user_phone" required></p>
+						        		<p><textarea name="saysomething" id="bill" cols="30"  rows="10"  placeholder="Say Something"></textarea></p>
+										<input type="submit" value="Place Order">
+						        	</form>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingTwo">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						          Shipping Address
+						        </button>
+						      </h5>
+						    </div>
+						    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="shipping-address-form">
+						        	<p>Your shipping address form is here.</p>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingThree">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						          Card Details
+						        </button>
+						      </h5>
+						    </div>
+						    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="card-details">
+						        	<p>Your card details goes here.</p>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'assets/img/products/product-img-1.jpg' %}" alt=""></a>
-						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'assets/img/products/product-img-2.jpg' %}" alt=""></a>
-						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{% static 'assets/img/products/product-img-3.jpg' %}" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+
+				<div class="col-lg-4">
+					<div class="order-details-wrap">
+						<table class="order-details">
+							<thead>
+								<tr>
+									<th>Your order Details</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody class="order-details-body">
+								<tr>
+									<td>Product</td>
+									<td>Total</td>
+								</tr>
+								{% for d in data %}
+								<tr>
+									<td>{{d.ProductName}}</td>
+									<td>Rs.{{d.TotalPrice}}</td>
+								</tr>
+							{% endfor %}
+
+							</tbody>
+							<tbody class="checkout-details">
+								<tr>
+									<td>Subtotal</td>
+									<td>Rs.{{subtotal}}</td>
+								</tr>
+								<tr>
+									<td>Shipping</td>
+									<td>Rs.{{shipping_charge}}</td>
+								</tr>
+								<tr>
+									<td>Total</td>
+									<td>Rs.{{total}}</td>
+								</tr>
+							</tbody>
+						</table>
+<!--						<a href="#" class="boxed-btn">Place Order</a>-->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end more products -->
+	<!-- end check out section -->
 
 	<!-- logo carousel -->
 	<div class="logo-carousel-section">
@@ -242,19 +268,19 @@
 				<div class="col-lg-12">
 					<div class="logo-carousel-inner">
 						<div class="single-logo-item">
-							<img src="{% static 'assets/img/company-logos/1.png' %}" alt="">
+							<img src="assets/img/company-logos/1.png" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{% static 'assets/img/company-logos/2.png' %}" alt="">
+							<img src="assets/img/company-logos/2.png" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{% static 'assets/img/company-logos/3.png' %}" alt="">
+							<img src="assets/img/company-logos/3.png" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{% static 'assets/img/company-logos/4.png' %}" alt="">
+							<img src="assets/img/company-logos/4.png" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{% static 'assets/img/company-logos/5.png' %}" alt="">
+							<img src="assets/img/company-logos/5.png" alt="">
 						</div>
 					</div>
 				</div>
@@ -336,7 +362,7 @@
 	<!-- end copyright -->
 
 	<!-- jquery -->
-<script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script>
 	<!-- bootstrap -->
 	<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 	<!-- count down -->
@@ -355,24 +381,6 @@
 	<script src="{% static 'assets/js/sticker.js' %}"></script>
 	<!-- main js -->
 	<script src="{% static 'assets/js/main.js' %}"></script>
-
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <script>
-		$(document).ready(function(){
-		$("#qty").change(function(){
-		x = document.getElementById("qty").value;
-		y = document.getElementById("price").value;
-		result = x*y
-		document.getElementById("total").value = result;
-
-		})
-
-		})
-	</script>
-
-
-
 
 </body>
 </html>

@@ -60,14 +60,14 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="{% url 'Home' %}">Home</a>
+								<li ><a href="{% url 'Home' %}">Home</a>
 <!--									<ul class="sub-menu">-->
 <!--										<li><a href="index.html">Static Home</a></li>-->
 <!--										<li><a href="index_2.html">Slider Home</a></li>-->
 <!--									</ul>-->
 								</li>
 								<li><a href="{% url 'About' %}">About</a></li>
-								<li><a href="{% url 'OurProduct' %}">Our Products</a></li>
+								<li class="current-list-item"><a href="{% url 'OurProduct' %}">Our Products</a></li>
 								<li><a href="#">Categories</a>
 									<ul class="sub-menu">
 										{% for i in cat %}
@@ -83,7 +83,12 @@
 <!--									</ul>-->
 								</li>
 								<li><a href="{% url 'Contact' %}">Contact</a></li>
-								<li><a href="#">Shop</a></li>
+								<li ><a href="#">Shop</a>
+									<ul class="sub-menu">
+										<li><a href="{% url 'cart_page' %}">Cart</a></li>
+										<li><a href="{% url 'check_out_page' %}">CheckOut</a></li>
+									</ul>
+								</li>
 
 								{% if request.session.Username %}
 								<li><a href="{% url 'User_logout' %}">Welcome {{request.session.Username}}/Logout</a></li>
@@ -223,16 +228,16 @@
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box about-widget">
 						<h2 class="widget-title">About us</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+						<p> "Experience the convenience of shopping for fresh vegetables and fruits from the comfort of your home with our comprehensive ecommerce supermarket."</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box get-in-touch">
 						<h2 class="widget-title">Get in Touch</h2>
 						<ul>
-							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
+							<li>HMt Junction,Ernakulam Kerala,India</li>
+							<li>bigmart@gmail.com</li>
+							<li>+91 8515694525 </li>
 						</ul>
 					</div>
 				</div>
@@ -240,11 +245,11 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Pages</h2>
 						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="{% url 'Home' %}">Home</a></li>
+							<li><a href="{% url 'About' %}">About</a></li>
+							<li><a href="{% url 'OurProduct' %}">Our Products</a></li>
+							<li><a href="#">News</a></li>
+							<li><a href="{% url 'Contact' %}">Contact</a></li>
 						</ul>
 					</div>
 				</div>
@@ -264,12 +269,12 @@
 	<!-- end footer -->
 
 	<!-- copyright -->
-	<div class="copyright">
+		<div class="copyright">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
-						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
+					<p>Copyrights &copy; 2019 - <a href="#">BigMart_Team</a>,  All Rights Reserved.<br>
+						Distributed By - <a href="#">BigMart</a>
 					</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">

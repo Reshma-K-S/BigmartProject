@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from Backend.models import productdb,categorydb
-from WebApp.models import contactdb,RegistrationDb,CartDb
+from WebApp.models import contactdb,RegistrationDb,CartDb,PaymentDb
 from django.contrib import messages
 
 # Create your views here.
@@ -101,10 +101,19 @@ def save_cart(request):
 def cart_page(request):
     data = CartDb.objects.filter(Username=request.session['Username'])
     cat = categorydb.objects.all()
+    subtotal = 0
+    shipping_charge = 0
     total = 0
     for d in data:
-        total = total + d.TotalPrice
-    return render(request,"Cart.html",{'data':data,'total':total,'cat':cat})
+        subtotal = subtotal + d.TotalPrice
+        if subtotal >= 2000:
+            shipping_charge = 0
+        elif subtotal >= 500:
+            shipping_charge = 50
+        else:
+            shipping_charge = 100
+        total = subtotal+shipping_charge
+    return render(request,"Cart.html",{'data':data,'subtotal':subtotal,'cat':cat,'shipping_charge':shipping_charge,'total':total})
 
 def delete_item(request,cart_id):
     x = CartDb.objects.filter(id=cart_id)
@@ -114,3 +123,35 @@ def delete_item(request,cart_id):
 
 def user_login_page(request):
     return render(request,"User_login.html")
+
+
+def check_out_page(request):
+    cat = categorydb.objects.all()
+    data = CartDb.objects.filter(Username=request.session['Username'])
+    subtotal = 0
+    shipping_charge = 0
+    total = 0
+    for d in data:
+        subtotal = subtotal + d.TotalPrice
+        if subtotal >= 2000:
+            shipping_charge = 0
+        elif subtotal >= 500:
+            shipping_charge = 50
+        else:
+            shipping_charge = 100
+        total = subtotal + shipping_charge
+    return render(request,"Check_Out.html",{'cat':cat,'data':data,'subtotal':subtotal,'shipping_charge':shipping_charge,'total':total})
+
+def payment_page(request):
+    return render(request,"Payment.html")
+
+def save_payment_details(request):
+    if request.method == "POST":
+        na = request.POST.get('user_name')
+        us_em = request.POST.get('user_email')
+        us_add = request.POST.get('user_address')
+        us_ph = request.POST.get('user_phone')
+        sa_so = request.POST.get('saysomething')
+        obj = PaymentDb(Name=na,Email_Id=us_em,Address=us_add,Phone_Number=us_ph,SaySomething=sa_so)
+        obj.save()
+        return redirect(payment_page)

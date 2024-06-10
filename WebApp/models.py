@@ -21,3 +21,9 @@ class CartDb(models.Model):
     Quantity = models.IntegerField(blank=True,null=True)
     TotalPrice = models.IntegerField(blank=True,null=True)
 
+class PaymentDb(models.Model):
+    Name = models.CharField(max_length=100,blank=True,null=True)
+    Email_Id = models.EmailField(max_length=100,blank=True,null=True)
+    Address = models.CharField(max_length=100,blank=True,null=True)
+    Phone_Number = models.IntegerField(blank=True,null=True)
+    SaySomething = models.TextField(max_length=100,blank=True,null=True)
